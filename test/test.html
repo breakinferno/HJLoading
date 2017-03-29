@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HJLoading Testing</title>
+	<meta charset="utf-8">
+	<script src="../src/js/lib/jquery.js"></script>
+	<script src="../src/js/modules/HJLoading.js"></script>
+</head>
+<body>
+	<div class="loadingcontainer">
+		<div class="loadingbtn loadingself">自身的测试</div>
+		<div class="loadingbtn loadingspecial">在目标显示Loading</div>
+		<div class="loadingbtn loadingglobal">全局Loading</div>
+		<div class="loadingbtn specialloadingspecial">带有配置项的测试</div>
+	</div>
+	<div class="specialtarget">目标loading的target DIV</div>
+	<div class="specialloadingtarget">配置项目标loading的target DIV</div>
+
+	<script>
+		$(".loadingself").on('click',function(){
+			var loading = new HJLoading();
+			loading.init({
+				target:this,
+				loadingTPLId:3,
+			});
+
+			loading.start();
+
+			setTimeout(function(){
+				loading.stop();
+			},3000);
+		});
+
+
+		$('.loadingspecial').on('click',function(){
+			var loading = new HJLoading();
+			loading.init({
+				target:".specialtarget",
+				loadingTPLId:4,
+			});
+
+			loading.start();
+			setTimeout(function(){
+				loading.stop();
+			},3000);
+		})
+
+
+		$('.loadingglobal').on('click',function(){
+			var loading = new HJLoading();
+			loading.init({
+				loadingTPLId:2,
+			});
+			loading.start();
+			setTimeout(function(){
+				loading.stop();
+			},3000);
+		})
+
+
+		$('.specialloadingspecial').on('click',function(){
+			var loading = new HJLoading();
+
+			loading.init({
+				target:'.specialloadingtarget',
+				loadingTPL:"<div class='mdzz'></div>",
+				loadingCSS:{
+					background:'red',
+				},
+			});
+			loading.start();
+			setTimeout(function(){
+				loading.stop();
+			},3000);
+		});
+	</script>
+</body>
+</html>
