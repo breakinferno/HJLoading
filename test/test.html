@@ -3,6 +3,7 @@
 <head>
 	<title>HJLoading Testing</title>
 	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="../src/css/HJLoading-default.css">
 	<script src="../src/js/lib/jquery.js"></script>
 	<script src="../src/js/modules/HJLoading.js"></script>
 </head>
@@ -18,60 +19,51 @@
 
 	<script>
 		$(".loadingself").on('click',function(){
-			var loading = new HJLoading();
+			var loading = new HJLoading('../src/css');
 			loading.init({
 				target:this,
-				loadingTPLId:3,
 			});
 
 			loading.start();
-
-			setTimeout(function(){
-				loading.stop();
-			},3000);
 		});
 
 
 		$('.loadingspecial').on('click',function(){
-			var loading = new HJLoading();
+			var loading = new HJLoading('../src/css');
 			loading.init({
 				target:".specialtarget",
 				loadingTPLId:4,
 			});
 
 			loading.start();
-			setTimeout(function(){
-				loading.stop();
-			},3000);
 		})
 
 
 		$('.loadingglobal').on('click',function(){
-			var loading = new HJLoading();
+			var loading = new HJLoading('../src/css');
 			loading.init({
 				loadingTPLId:2,
 			});
 			loading.start();
-			setTimeout(function(){
-				loading.stop();
-			},3000);
 		})
 
 
 		$('.specialloadingspecial').on('click',function(){
-			var loading = new HJLoading();
+			var loading = new HJLoading('../src/css/');
 
 			loading.init({
 				target:'.specialloadingtarget',
 				loadingTPL:"<div class='mdzz'></div>",
-				loadingCSS:{
+/*				loadingCSS:{
 					background:'red',
-				},
+				},*/
+				loadingCSS:'HJLoadingtest',
+				loadingTime: 5000,
 			});
 			loading.start();
-			setTimeout(function(){
+/*			setTimeout(function(){
 				loading.stop();
-			},3000);
+			},3000);*/
 		});
 	</script>
 </body>

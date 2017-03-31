@@ -16,15 +16,17 @@
 
 })(this,function($){
 	//HJLoading对象
-	var HJLoading = function() {};
+	var HJLoading = function(cssPath) {
+		this.relativeCssPath = cssPath;
+	};
 
 	//HJLoadingTPL
 	var Template = [{
 		css: "",
-		content:"<div class='loadingContent'><div class='spinner0'></div></div>",
+		content:"<div class='loadingContent'><div class='spinner0'><div class='spinner-container container1'><div class='circle'></div><div class='circle2'></div><div class='circle3'></div><div class='circle4'></div></div><div class='spinner-container container2'><div class='circle1'></div><div class='circle2'></div><div class='circle3'></div><div class='circle4'></div></div><div class='spinner-container container3'><div class='circle1'></div><div class='circle2'></div><div class='circle3'></div><div class='circle4'></div></div></div></div>",		
 	},{
 		css: "",
-		content:"<div class='loadingContent'><div class='spinner1'><div class='spinner-container container1'><div class='circle'></div><div class='circle2'></div><div class='circle3'></div><div class='circle4'></div></div><div class='spinner-container container2'><div class='circle1'></div><div class='circle2'></div><div class='circle3'></div><div class='circle4'></div></div><div class='spinner-container container3'><div class='circle1'></div><div class='circle2'></div><div class='circle3'></div><div class='circle4'></div></div></div></div>",		
+		content:"<div class='loadingContent'><div class='spinner1'></div></div>",
 	},{
 		css: "",
 		content:"<div class='loadingContent'><div class='spinner2'><div class='bounce1'></div><div class='bounce2'></div><div class='bounce3'></div></div></div>",
@@ -76,7 +78,8 @@
 		that.loadingTPL = config.loadingTPL ? '<div class="loadingContent">' + config.loadingTPL + '</div>': that.linkTPL(that.loadingTPLId);
 		//设置css样式
 		//支持内联css样式和外部css样式表,可以为cssobj，或者为css样式表路径，否则默认适用样式
-		that.loadingCSS = typeof config.loadingCSS !== "undefined" ? (typeof config.loadingCSS === "object"?config.loadingCSS:that.linkCSS(that.path,config.loadingCSS)): that.linkCSS(that.path,that.loadingTPLId);
+		that.loadingCSS = typeof config.loadingCSS !== "undefined" ? (typeof config.loadingCSS === "object"?config.loadingCSS:that.linkCSS(that.relativeCssPath,config.loadingCSS)): that.linkCSS(that.relativeCssPath,that.loadingTPLId);
+
 		//loading 时间
 		that.loadingTime = config.loadingTime || that.loadingTime;
 
@@ -91,12 +94,23 @@
 		//载入loading
 		$("body").append(that.loading);
 		that.resetPosition();
+
+		//设置定时器
+		if(that.loadingTime){
+			setTimeout(function(){
+				that.stop();
+			},that.loadingTime);
+		}
 	}
 
 	//定义loading停止
 	function stopHJLoading(){
-		var md = 0;
+		//var md = 0;
 		this.loading.remove();
+		//考虑停止loading时移除link
+		if($('head').find('#'+this.linkedCssId)){
+			$('head').find('#'+this.linkedCssId).remove();
+		}
 	}
 
 	//定义loading重定位
@@ -155,18 +169,18 @@
 				left: eleOffset.left,
 			});
 		}
-		
 
 	}
 
 	HJLoading.prototype = {
 		//默认loading模板,可以通过init修改为自定义样式
-		HJLoadingTPLId: 2,
+		HJLoadingTPLId: 0,
 		//判断是否loading
 		isLoading: false,
 		//设置loading时间
-		loadingTime : 1000,
+		loadingTime : 3000,
 		path:getPath(),
+		csspath:'',
 		//读取html文件
 		readHTML:function(href,name){
 			$.ajax({
@@ -185,7 +199,8 @@
 			var content = Template[tplname].content;
 			return content;
 		},
-		//动态加载css
+		//动态加载css,需要传入参数css文件夹的相对路径，
+		//cssname三种形式,number(0-6),string.css ,string
 		linkCSS : function(href,cssname){
 			var that = this;
 			if(!href){
@@ -194,13 +209,27 @@
 			var head = $('head')[0];
 			var link = document.createElement('link');
 			var timeout = 0;
-			var id = cssname;
 
+			var id,isdot;
+			//判断是否以.css结尾
+			var reg = /\.css/;
+
+			if(typeof cssname === "number"){
+				id = 'HJLoading' + cssname;
+			}else{
+				id = cssname.replace(reg,'');
+			}
 
 			link.rel = 'stylesheet';
-			link.href = that.path + 'css/HJLoading' + cssname + ".css";
-			link.id = id;
+			//对用户输入.css或者没有.css都能正确处理(去除.css)
+/*			var reg = /.\.css/;
+			if(reg.test(id)){
 
+			}*/
+
+			link.href = (href.lastIndexOf('/') === href.length-1? href : href + '/') + id + ".css";
+			link.id = id;
+			that.linkedCssId = id;
 			if(!$('#' + id)[0]){
 				head.appendChild(link);
 			}
@@ -239,9 +268,6 @@
 			})
 		},
 	};
-
-
-    HJLoading.prototype.linkCSS(getPath(),'-default');
 
 	return HJLoading;
 });
