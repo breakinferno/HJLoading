@@ -1,27 +1,27 @@
-#HJLoading
+# HJLoading
 ---
 a component of HJProject which is used to implement the loading function.
 
-#Install
+# Install
 
 ```javascript
 <script src="youdirctory/HJLoading.js"></script>
 ```
 
-#Usage
-##1.initial the instance 
+# Usage
+## 1.initial the instance 
 
 ```javascript
     var  loading = new HJLoading('your-css-directory');
 ```
 
-###exmaple
+### exmaple
 ```javascript
   var loading = new HJLoading('../src/css');
 ```
-##2.loading.init(yoursetting).
+## 2.loading.init(yoursetting).
 
-###Attr
+### Attr
 There are somes attributes you can adapt:
 
 |attr | type | default| des
@@ -33,7 +33,7 @@ loadingCSS | object/string | undefined | 用户自定义样式文件名称或者
 target | object/string | 'html' | loading显示目标
 
 特别需要指出的是，如果没有传入loadingTPL，则会自动加载默认模板（0号），如果传入用户自定义模板，则组件应用传入模板。不能同时传入loadingTPLId和loadingTPL，如果自定义模板才需要传入loadingCSS属性，不然最好不用传入此参数，因为组件会自动匹配相应模板的css样式表。
-###example
+### example
 ```javascript
   //默认模板
   loading.init({
@@ -60,10 +60,10 @@ target | object/string | 'html' | loading显示目标
  });
 ```
 
-##3.Loading.start()
+## 3.Loading.start()
 start loading service
 
-###example
+### example
 ```javascript
   loading.start();
 ```
