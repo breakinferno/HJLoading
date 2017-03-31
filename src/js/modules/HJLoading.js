@@ -74,6 +74,9 @@
 
 		//loading 的模板id
 		that.loadingTPLId = config.loadingTPLId || that.HJLoadingTPLId;
+        
+        that.loadingTPLId = that.loadingTPLId < 0 ? 0 : that.loadingTPLId % Template.length;
+
 		//如果有模板则传模板，没有则根据id设置模板
 		that.loadingTPL = config.loadingTPL ? '<div class="loadingContent">' + config.loadingTPL + '</div>': that.linkTPL(that.loadingTPLId);
 		//设置css样式
