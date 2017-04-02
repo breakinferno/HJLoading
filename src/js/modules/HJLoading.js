@@ -9,6 +9,8 @@
 
 //可以改进地方：1:读取div模板文件，2:Template[num].css的使用,3:css通过对象传递。
 
+//考虑自动停止还是手动停止lodaing操作
+
 ;
 (function(root,factory){
 	//需要jquery
@@ -18,6 +20,8 @@
 	//HJLoading对象
 	var HJLoading = function(cssPath) {
 		this.relativeCssPath = cssPath;
+		//加载默认样式文件
+		this.linkCSS(cssPath,'HJLoading-default');
 	};
 
 	//HJLoadingTPL
@@ -181,7 +185,7 @@
 		//判断是否loading
 		isLoading: false,
 		//设置loading时间
-		loadingTime : 3000,
+		loadingTime : false,
 		path:getPath(),
 		csspath:'',
 		//读取html文件
@@ -224,6 +228,7 @@
 			}
 
 			link.rel = 'stylesheet';
+			link.type = 'text/css';
 			//对用户输入.css或者没有.css都能正确处理(去除.css)
 /*			var reg = /.\.css/;
 			if(reg.test(id)){
