@@ -69,7 +69,7 @@ target | object/string | 'html' | loading显示目标
   loading.start();
 ```
 
-## 3.Loading.stop()
+## 4.Loading.stop()
 
 停止loading操作，默认用户自己调用此函数，如若存在loadingTime参数，则自动以参数停止
 ### example
