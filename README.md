@@ -61,9 +61,18 @@ target | object/string | 'html' | loading显示目标
 ```
 
 ## 3.Loading.start()
-start loading service
+
+启动loading
 
 ### example
 ```javascript
   loading.start();
+```
+
+## 3.Loading.stop()
+
+停止loading操作，默认用户自己调用此函数，如若存在loadingTime参数，则自动以参数停止
+### example
+```javascript
+  loading.stop();
 ```
