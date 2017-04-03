@@ -27,7 +27,7 @@ There are somes attributes you can adapt:
 |attr | type | default| des
 :-- | :-- | :-- | :--
 loadingTPLId | number | 0 | 根据此模板id加载模板(数值只能0-6）
-loadingTime | number | 3000 | 定义loading时长
+loadingTime | number | false | 默认为用户控制停止，输入此参数可以使其以参数时间自动停止
 loadingTPL | string | 'template0' | 用户自定义模板
 loadingCSS | object/string | undefined | 用户自定义样式文件名称或者用户自定义样式对象
 target | object/string | 'html' | loading显示目标
@@ -61,9 +61,18 @@ target | object/string | 'html' | loading显示目标
 ```
 
 ## 3.Loading.start()
-start loading service
+
+启动loading
 
 ### example
 ```javascript
   loading.start();
+```
+
+## 4.Loading.stop()
+
+停止loading操作，默认用户自己调用此函数，如若存在loadingTime参数，则自动以参数停止
+### example
+```javascript
+  loading.stop();
 ```
