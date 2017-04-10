@@ -34,6 +34,7 @@ loadingTPL | string | 'template0' | 用户自定义模板
 loadingCSS | object/string | undefined | 用户自定义样式文件名称或者用户自定义样式对象
 target | object/string | 'html' | loading显示目标
 loadingId | string | 'HJLoading0' | 如果你想准确的控制某loading行为则必须需要此属性
+loadingScale | number | 0.5 | 用于调整loading大小.默认为容器的一半
 
 特别需要指出的是，如果没有传入loadingTPL，则会自动加载默认模板（0号），如果传入用户自定义模板，则组件应用传入模板。不能同时传入loadingTPLId和loadingTPL，如果自定义模板才需要传入loadingCSS属性，不然最好不用传入此参数，因为组件会自动匹配相应模板的css样式表。
 
