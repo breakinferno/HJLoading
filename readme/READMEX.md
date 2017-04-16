@@ -42,7 +42,7 @@ loadingScale | number | 0.5 | 用于调整loading大小.默认为容器的一半
 ### example
 ```javascript
   //默认模板
-  HJLoading.start({
+  loading.start({
     loadingTPLId : 1,
     target : this,
     loadingId : 'self'
@@ -53,7 +53,7 @@ loadingScale | number | 0.5 | 用于调整loading大小.默认为容器的一半
   },3000);
 
   //自定义模板
-  HJLoading.start({
+  loading.start({
     loadingTPL : '<div class="special"></div>',
     target : '.yourtarget',
     loadingCSS: 'your-css-file-name',
@@ -65,7 +65,7 @@ loadingScale | number | 0.5 | 用于调整loading大小.默认为容器的一半
   },3000);
  
  //或者
-   HJLoading.start({
+   loading.start({
     loadingTPL : '<div class="special"></div>',
     target : '.yourtarget',
     loadingTime : 4000,
@@ -81,5 +81,5 @@ loadingScale | number | 0.5 | 用于调整loading大小.默认为容器的一半
 停止loading操作，默认用户自己调用此函数，如若存在loadingTime参数，则自动以参数停止
 ### example
 ```javascript
-  HJLoading.stop('self');
+  loading.stop('self');
 ```
